@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import CTAButton from "./CTAButton";
-import { BadgeCheck, ClipboardList, HeartPulse, Check, X, Star, Trophy, Users, Clock4, HeartHandshake } from "lucide-react";
+import { BadgeCheck, ClipboardList, HeartPulse, Check, X, Star, Trophy, Users, Clock4 } from "lucide-react";
+import { motion } from "framer-motion";
 
 function useVisibilityEvent(id) {
   useEffect(() => {
@@ -17,25 +18,30 @@ function useVisibilityEvent(id) {
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.2 }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, [id]);
 }
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 export function UnderstandingChallenge() {
   useVisibilityEvent("challenge");
   return (
     <section id="challenge" className="py-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Your Struggles Are Real - And Treatable</h2>
-        <p className="mt-4 text-slate-700 leading-relaxed max-w-3xl">
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-3xl md:text-4xl font-extrabold text-slate-900">Your Struggles Are Real - And Treatable</motion.h2>
+        <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-4 text-slate-700 leading-relaxed max-w-3xl">
           Getting proper ADHD care can be frustrating: rushed visits, unclear answers, and feeling unheard. We believe in care that respects your time and your story.
-        </p>
-        <p className="mt-3 text-slate-700 max-w-3xl">
+        </motion.p>
+        <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-3 text-slate-700 max-w-3xl">
           Our mission is simple: thorough evaluations, clear diagnoses, and practical treatment plans that help you function and thrive.
-        </p>
+        </motion.p>
       </div>
     </section>
   );
@@ -52,19 +58,26 @@ export function OurApproach() {
   return (
     <section id="why" className="py-20 bg-slate-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Our Approach</h2>
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-3xl md:text-4xl font-extrabold text-slate-900">Our Approach</motion.h2>
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map(({ icon: Icon, title, desc, key }) => (
-            <div key={key} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+            <motion.div
+              key={key}
+              className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <Icon className="w-6 h-6 text-[hsl(276,46%,55%)]" />
               <h3 className="mt-3 font-bold text-slate-900">{title}</h3>
               <p className="mt-2 text-slate-600 text-sm">{desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
-        <div className="mt-8">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-8">
           <CTAButton label="Check If You Qualify" href="https://start.millenniummedicalassociates.com/assessment" eventParams={{ section: "approach" }} />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -87,9 +100,9 @@ export function Differentiation() {
   return (
     <section id="diff" className="py-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">How We Compare</h2>
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-3xl md:text-4xl font-extrabold text-slate-900">How We Compare</motion.h2>
         <div className="mt-8 grid lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2 overflow-hidden rounded-2xl ring-1 ring-slate-200">
+          <motion.div className="lg:col-span-2 overflow-hidden rounded-2xl ring-1 ring-slate-200" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
             <div className="grid grid-cols-3 bg-slate-50 text-slate-900 font-semibold">
               <div className="p-4">Feature</div>
               <div className="p-4">Millennium Medical Associates</div>
@@ -105,13 +118,13 @@ export function Differentiation() {
               ))}
             </div>
             <div className="p-4 bg-slate-50 text-sm text-slate-700">“They finally took the time to understand me. Life-changing.” — Patient</div>
-          </div>
-          <div className="space-y-4">
+          </motion.div>
+          <motion.div className="space-y-4" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
             <div className="aspect-video w-full bg-slate-100 rounded-2xl ring-1 ring-slate-200 flex items-center justify-center text-slate-500">Office Photo</div>
             <div>
               <CTAButton label="Start Free Screening" href="https://start.millenniummedicalassociates.com/assessment" className="w-full" eventParams={{ section: "compare" }} />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -135,10 +148,10 @@ export function Testimonials() {
   return (
     <section id="testimonials" className="py-20 bg-slate-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">What Patients Say</h2>
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-3xl md:text-4xl font-extrabold text-slate-900">What Patients Say</motion.h2>
         <div className="mt-8 grid md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
-            <div key={i} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+            <motion.div key={i} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <div className="flex items-center gap-1 text-amber-500">
                 {Array.from({ length: 5 }).map((_, j) => (
                   <Star key={j} className="w-4 h-4 fill-amber-500 text-amber-500" />
@@ -146,15 +159,15 @@ export function Testimonials() {
               </div>
               <p className="mt-4 text-slate-700">“{t.quote}”</p>
               <p className="mt-2 text-sm text-slate-500">— {t.name}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map(({ icon: Icon, label }, i) => (
-            <div key={i} className="rounded-xl bg-white p-4 text-center ring-1 ring-slate-200">
+            <motion.div key={i} className="rounded-xl bg-white p-4 text-center ring-1 ring-slate-200" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <Icon className="mx-auto w-6 h-6 text-[hsl(276,46%,55%)]" />
               <div className="mt-2 font-semibold text-slate-900">{label}</div>
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className="mt-10 flex items-center gap-4">
@@ -191,11 +204,11 @@ export function Pricing() {
   return (
     <section id="pricing" className="py-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Transparent, Affordable Pricing</h2>
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-3xl md:text-4xl font-extrabold text-slate-900">Transparent, Affordable Pricing</motion.h2>
         <p className="mt-2 text-slate-700">Most patients see improvement within 30 days.</p>
         <div className="mt-8 grid md:grid-cols-3 gap-6">
           {tiers.map((t) => (
-            <div key={t.title} className={`rounded-2xl p-6 ring-1 ring-slate-200 bg-white ${t.featured ? "shadow-xl border-2 border-[#FF6B35]" : "shadow-sm"}`}>
+            <motion.div key={t.title} className={`rounded-2xl p-6 ring-1 ring-slate-200 bg-white ${t.featured ? "shadow-xl border-2 border-[#FF6B35]" : "shadow-sm"}`} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <h3 className="font-bold text-slate-900">{t.title}</h3>
               <div className="mt-3 text-3xl font-extrabold text-slate-900">{t.price}</div>
               <ul className="mt-4 space-y-2 text-slate-700 text-sm">
@@ -208,7 +221,7 @@ export function Pricing() {
                   <CTAButton label={t.cta.label} href={t.cta.href} className="w-full" eventParams={{ section: "pricing" }} />
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -221,11 +234,11 @@ export function UnderstandingCost() {
   return (
     <section id="value" className="py-20 bg-slate-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">What To Expect: Pricing & Value</h2>
-        <p className="mt-4 text-slate-700 max-w-3xl">Your evaluation includes an in-depth clinical interview, validated screening tools, medication assessment, and a personalized plan. Clear next steps, no hidden fees.</p>
-        <div className="mt-6">
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-3xl md:text-4xl font-extrabold text-slate-900">What To Expect: Pricing & Value</motion.h2>
+        <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-4 text-slate-700 max-w-3xl">Your evaluation includes an in-depth clinical interview, validated screening tools, medication assessment, and a personalized plan. Clear next steps, no hidden fees.</motion.p>
+        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-6">
           <CTAButton label="Start Your Free Pre-Assessment" href="https://start.millenniummedicalassociates.com/assessment" eventParams={{ section: "value" }} />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -251,7 +264,7 @@ export function FAQ() {
   return (
     <section id="faq" className="py-20 bg-white">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Frequently Asked Questions</h2>
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-3xl md:text-4xl font-extrabold text-slate-900">Frequently Asked Questions</motion.h2>
         <div className="mt-8 divide-y divide-slate-200 rounded-2xl ring-1 ring-slate-200 bg-white">
           {faqs.map((item, i) => (
             <div key={i} className="p-5">
@@ -259,7 +272,7 @@ export function FAQ() {
                 <span className="font-semibold text-slate-900">{item.q}</span>
                 <span className="text-slate-500">{open === i ? "–" : "+"}</span>
               </button>
-              {open === i && <p className="mt-3 text-slate-700 text-sm">{item.a}</p>}
+              {open === i && <motion.p variants={fadeUp} initial="hidden" animate="show" className="mt-3 text-slate-700 text-sm">{item.a}</motion.p>}
             </div>
           ))}
         </div>
@@ -277,13 +290,14 @@ export function FinalCTA() {
   return (
     <section id="pre" className="relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-[hsl(245,58%,72%)] to-[hsl(276,46%,55%)]" />
+      <motion.div aria-hidden className="pointer-events-none absolute -bottom-24 right-1/4 h-[500px] w-[500px] rounded-full bg-white/10 blur-3xl" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1 }} />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-3xl">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white">Ready to Get Real Answers About Your Focus?</h2>
+          <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-3xl md:text-5xl font-extrabold text-white">Ready to Get Real Answers About Your Focus?</motion.h2>
           <p className="mt-3 inline-flex items-center rounded-full bg-white/15 text-white px-3 py-1 text-xs font-medium ring-1 ring-white/30">{dateText}</p>
-          <div className="mt-6">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-6">
             <CTAButton label="Begin Pre-Assessment" href="https://start.millenniummedicalassociates.com/assessment" eventParams={{ section: "final_cta" }} />
-          </div>
+          </motion.div>
           <div className="mt-6 flex flex-wrap items-center gap-3 text-white/90 text-sm">
             <span>HIPAA Compliant</span>•<span>Award-Winning Care</span>•<span>Beverly Hills Location</span>
           </div>

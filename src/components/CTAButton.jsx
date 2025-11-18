@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 // Utility to preserve source parameter in outbound links
 function buildUrl(baseUrl) {
@@ -37,25 +38,32 @@ export default function CTAButton({ label = "Get Started", href, onClick, size =
     } catch {}
   };
 
-  const classes = `inline-flex items-center justify-center rounded-xl bg-[#FF6B35] text-white font-semibold shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FF6B35] transition min-h-[44px] ${sizes[size]} ${className}`;
+  const classes = `relative inline-flex items-center justify-center rounded-xl bg-[#FF6B35] text-white font-semibold shadow-lg shadow-black/10 hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FF6B35] transition will-change-transform min-h-[44px] ${sizes[size]} ${className}`;
+
+  const motionProps = {
+    whileHover: { y: -2, scale: 1.02 },
+    whileTap: { scale: 0.98 },
+    transition: { type: "spring", stiffness: 300, damping: 20, mass: 0.3 },
+  };
 
   if (finalHref) {
     return (
-      <a
+      <motion.a
         href={finalHref}
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}
         className={classes}
+        {...motionProps}
       >
-        {label}
-      </a>
+        <span className="pointer-events-none">{label}</span>
+      </motion.a>
     );
   }
 
   return (
-    <button onClick={handleClick} className={classes}>
-      {label}
-    </button>
+    <motion.button onClick={handleClick} className={classes} {...motionProps}>
+      <span className="pointer-events-none">{label}</span>
+    </motion.button>
   );
 }

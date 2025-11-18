@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import CTAButton from "./CTAButton";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 function useSourceParam() {
   const [source, setSource] = useState("");
@@ -15,7 +16,17 @@ function useSourceParam() {
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const source = useSourceParam();
+  const { scrollYProgress } = useScroll();
+  const width = useSpring(scrollYProgress, { stiffness: 120, damping: 20, mass: 0.2 });
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 4);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navItem = (label, href, event) => (
     <a
@@ -34,7 +45,11 @@ export default function Header() {
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-950/60 bg-slate-950/80 border-b border-white/10">
+    <header className={`fixed top-0 left-0 right-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-950/60 ${scrolled ? "bg-slate-950/80 border-b border-white/10" : "bg-slate-950/40"}`}>
+      <motion.div
+        className="absolute top-0 left-0 h-[3px] bg-[#FF6B35] origin-left"
+        style={{ scaleX: width }}
+      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-3">
